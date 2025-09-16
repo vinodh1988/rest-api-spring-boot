@@ -17,6 +17,8 @@
     <li><%=n%></li>
     <%}%>
     </ul>
+    <h3> Session State: <%=request.getAttribute("sdata")%></h3>
+     <h3>Application State: <%=request.getAttribute("adata")%></h3>
     
 </body>
 </html>
