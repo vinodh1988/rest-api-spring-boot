@@ -25,4 +25,7 @@ public class PersonService {
 		return people;
 	}
 
+	public void addPerson(Person p) {
+		people.add(p);
+	}
 }
