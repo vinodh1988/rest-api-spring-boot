@@ -21,6 +21,9 @@ public class ComputerService {
     }	
    
     
+    public List<Computer> getComputers(Integer min,Integer max){
+    	return crepo.findByCnoRange(min, max);
+    }
     public Computer getComputer(Integer cno) throws RecordNotFoundException{
     	Computer computer=crepo.findByCno(cno);
     	if(computer==null)

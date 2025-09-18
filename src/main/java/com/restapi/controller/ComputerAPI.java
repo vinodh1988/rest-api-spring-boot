@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.restapi.entities.Computer;
@@ -25,8 +26,18 @@ public class ComputerAPI {
 	@Autowired
 	private ComputerService cservice;
 	@GetMapping("")
-	public List<Computer> getAll(){
-		return cservice.getComputers();
+	public List<Computer> getAll(
+			@RequestParam(required = false) Integer min,
+			@RequestParam(required = false) Integer max
+			){
+		if(max==null && min==null)
+				return cservice.getComputers();
+		else if(max==null )
+			    return cservice.getComputers(min,Integer.MAX_VALUE);
+		else if(min==null)
+			    return cservice.getComputers(Integer.MIN_VALUE,max);
+		else
+			    return cservice.getComputers(min,max);
 	}
 	
 	@GetMapping("/{cno}")
