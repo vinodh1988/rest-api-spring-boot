@@ -26,19 +26,13 @@ public class ComputerAPI {
 	}
 	
 	@PostMapping("")
-	public ResponseEntity<Object> addComputer(@RequestBody Computer computer)
+	public ResponseEntity<Object> addComputer(@RequestBody Computer computer)throws RecordAlreadyExistsException
 	{
-       try{
+     
           cservice.addComputer(computer);
           return new ResponseEntity<>(computer,HttpStatus.CREATED);
-       }
-       catch(RecordAlreadyExistsException e) {
-    	   return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
-       }
-       catch(Exception e) {
-    	   return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-       }
-       }
+       
+     }
 	}
 
 
