@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.restapi.entities.Computer;
+import com.restapi.entities.Person;
 import com.restapi.repository.ComputerRepository;
 import com.restapi.util.RecordAlreadyExistsException;
+import com.restapi.util.RecordNotFoundException;
 
 @Service
 public class ComputerService {
@@ -17,7 +19,14 @@ public class ComputerService {
     public List<Computer> getComputers(){
     	return crepo.findAll();
     }	
-
+   
+    
+    public Computer getComputer(Integer cno) throws RecordNotFoundException{
+    	Computer computer=crepo.findByCno(cno);
+    	if(computer==null)
+    		throw new RecordNotFoundException();
+    	return computer;
+    }
     
     public void addComputer(Computer c) throws RecordAlreadyExistsException
     {
