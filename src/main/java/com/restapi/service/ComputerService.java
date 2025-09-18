@@ -49,5 +49,16 @@ public class ComputerService {
     	crepo.save(c);
     		
     }
+    
+    public void deleteComputer(Integer cno) throws RecordNotFoundException{
+    	Computer computer=crepo.findByCno(cno);
+    	if(computer==null)
+    		throw new RecordNotFoundException();
+        crepo.delete(computer);
+    }
+    
+    
+    
+    
 
 }
