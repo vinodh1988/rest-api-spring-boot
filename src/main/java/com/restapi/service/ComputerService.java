@@ -36,5 +36,18 @@ public class ComputerService {
     	crepo.save(c);
     		
     }
+    
+    public void updateComputer(Computer c) throws RecordNotFoundException
+    {
+    	Computer computer=crepo.findByCno(c.getCno());
+    	if(computer==null)
+    		throw new RecordNotFoundException();
+    	c.setBrand(c.getBrand()==null?computer.getBrand():c.getBrand());
+    	c.setCpu(c.getCpu()==null?computer.getCpu():c.getCpu());
+    	c.setDisk(c.getDisk()==null?computer.getDisk():c.getDisk());
+    	c.setRam(c.getRam()==null?computer.getRam():c.getRam());
+    	crepo.save(c);
+    		
+    }
 
 }

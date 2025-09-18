@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.restapi.entities.Computer;
@@ -41,6 +42,16 @@ public class ComputerAPI {
           return new ResponseEntity<>(computer,HttpStatus.CREATED);
        
      }
+	
+	@RequestMapping(value="",method= {RequestMethod.PATCH,RequestMethod.PUT})
+	public ResponseEntity<Object> updateComputer(@RequestBody Computer computer) throws
+	RecordNotFoundException,IllegalArgumentException
+	{
+		if(computer.getCno()==null)
+			throw new IllegalArgumentException();
+		cservice.updateComputer(computer);
+		return new ResponseEntity<>("Successfully updated",HttpStatus.OK);
+	}
 	}
 
 
