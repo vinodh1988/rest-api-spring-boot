@@ -20,8 +20,14 @@ import com.restapi.service.ComputerService;
 import com.restapi.util.RecordAlreadyExistsException;
 import com.restapi.util.RecordNotFoundException;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/computers")
+@Tag(name = "Computer API", description="All the operations of Project entity")
 public class ComputerAPI {
 	@Autowired
 	private ComputerService cservice;
@@ -39,7 +45,17 @@ public class ComputerAPI {
 		else
 			    return cservice.getComputers(min,max);
 	}
-	
+	@Operation(
+			   summary="Get Computer by cno",
+			   description="Get Computer by passing cno "
+			)
+			@ApiResponses(
+				 value = {
+						 @ApiResponse(responseCode="200", description=":Computer found with given cno"),
+						 @ApiResponse(responseCode="400", description="if No Computer exists with given cno"),
+						 @ApiResponse(responseCode="500", description="Server related error")
+				 }	
+				)
 	@GetMapping("/{cno}")
 	public ResponseEntity<Object> getPerson(@PathVariable Integer cno) throws RecordNotFoundException
 	{
